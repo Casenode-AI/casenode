@@ -1,0 +1,31 @@
+{
+  "name": "casenode",
+  "displayName": "CaseNode",
+  "version": "1.0.0",
+  "description": "UK case law research over the CaseNode corpus. Bundles the CaseNode MCP connection with skills for cite-checking a draft, researching an area of law, tracing how a case has been treated, validating citations, and summarising a case.",
+  "author": {
+    "name": "CaseNode"
+  },
+  "homepage": "https://casenode.ai",
+  "repository": "https://github.com/casenode-ai/casenode",
+  "license": "MIT",
+  "keywords": ["legal", "uk-case-law", "citations", "research", "mcp"],
+  "userConfig": {
+    "api_key": {
+      "type": "string",
+      "title": "CaseNode API key",
+      "description": "Your CaseNode API key. Create one at casenode.ai under Settings, then API keys. Anyone with the key can query the corpus on your behalf, so keep it secret.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "mcpServers": {
+    "casenode": {
+      "type": "http",
+      "url": "https://api.casenode.ai/mcp",
+      "headers": {
+        "X-API-Key": "${user_config.api_key}"
+      }
+    }
+  }
+}

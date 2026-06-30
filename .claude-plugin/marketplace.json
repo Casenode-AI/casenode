@@ -1,0 +1,18 @@
+{
+  "name": "casenode",
+  "owner": {
+    "name": "CaseNode"
+  },
+  "metadata": {
+    "description": "The CaseNode marketplace. Hosts the CaseNode plugin for researching UK case law over the CaseNode corpus."
+  },
+  "plugins": [
+    {
+      "name": "casenode",
+      "source": ".",
+      "description": "UK case law research over the CaseNode corpus: cite-check a draft, research an area of law, trace how a case has been treated, validate citations, and summarise a case.",
+      "version": "1.0.0",
+      "keywords": ["legal", "uk-case-law", "citations", "research", "mcp"]
+    }
+  ]
+}
