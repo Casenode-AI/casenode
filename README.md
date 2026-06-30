@@ -2,9 +2,9 @@
 
 The CaseNode plugin bundles the CaseNode MCP connection with a set of skills for
 researching UK case law. The skills are short playbooks that teach the assistant
-how to cite-check a draft, research an area of law, trace how a case has been
-treated, validate the citations in a document, and summarise a case, so you get
-grounded, cited results without prompting for each step.
+how to cite-check a draft, search across cases, research an area of law, trace how
+a case has been treated, validate the citations in a document, and summarise a
+case, so you get grounded, cited results without prompting for each step.
 
 Every result is anchored to a real authority in the CaseNode corpus with its
 neutral citation, so you can open and confirm it. CaseNode is a research aid, not
@@ -44,6 +44,7 @@ describe what you need and let the assistant pick.
 | Skill | Invoke | What it does |
 |---|---|---|
 | Cite-check a draft | `/casenode:cite-check` | Runs two passes over every citation in a draft: an existence and treatment pass, then a usage pass that checks whether each authority actually supports the proposition it is cited for. |
+| Search across cases | `/casenode:search-cases` | Finds cases that match a concept, party, or court, narrowed by filters and ranked by influence. |
 | Research an area of law | `/casenode:research-area` | Scopes a research pack with real filters (court, domain, topic, year), then gathers the governing authorities, statutes, test elements, and judicial reasoning. |
 | Trace case treatment | `/casenode:trace-treatment` | Given one authority, traces how later courts have treated it through the citation network and verbatim extracts. |
 | Validate citations | `/casenode:validate-citations` | Bulk-resolves every citation in a document and reports which are real, which are not in the corpus, and which carry negative treatment. Existence only, not usage. |
