@@ -42,8 +42,8 @@ Search: vicarious liability, Supreme Court
 
 Top matches, ranked by influence:
   1. Catholic Child Welfare Society [2012] UKSC 56 (UKSC, 2012) - cited 53 times
-  2. Cox v Ministry of Justice [2016] UKSC 10 (UKSC, 2016) - cited 41 times
-  3. WM Morrison Supermarkets [2020] UKSC 12 (UKSC, 2020) - cited 28 times
+  2. Cox v Ministry of Justice [2016] UKSC 10 (UKSC, 2016) - cited 33 times
+  3. WM Morrison Supermarkets [2020] UKSC 12 (UKSC, 2020) - cited 23 times
 
 Want one of these in detail, or a wider net across the Court of Appeal?
 ```
