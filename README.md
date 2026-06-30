@@ -23,6 +23,19 @@ as the `X-API-Key` header on every request to the CaseNode MCP server at
 `https://api.casenode.ai/mcp`. Keep it secret: anyone with the key can query the
 corpus on your behalf.
 
+## Verify your setup
+
+After installing and entering your key, confirm the connection works before you
+rely on the skills. Ask the assistant to resolve a known citation, for example:
+
+```
+Use CaseNode to resolve [2019] UKSC 38
+```
+
+If it returns the authority with its title and court, the key is bound correctly
+and every skill is ready to use. If it reports an authentication error, re-enter
+your key with `/plugin` and check that it was copied in full.
+
 ## Skills
 
 Skills are namespaced under the plugin. You can invoke each one directly, or
