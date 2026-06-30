@@ -1,6 +1,6 @@
 ---
 name: summarise-case
-description: Summarise a single UK case from the CaseNode corpus. Use when the user knows the title or citation of a case and wants a structured summary of what it decided, the parties, the court, the issue, the outcome, and the reasoning.
+description: Summarise a single UK case from the CaseNode corpus. Use when the user knows the title or citation of a case and wants a structured summary of what it decided, the parties, the court, the issue, the outcome, the reasoning, the legislation and authorities it relies on, and how later cases have treated it and when it was last cited.
 ---
 
 # Summarise a case
@@ -28,8 +28,18 @@ from the authority record and judgment text in the corpus, not from memory.
    `read_judgment_text` and page through with `offset`, or `get_authority_paragraphs`,
    to find the issue, the decision, and the core reasoning. Do not summarise from
    the headline alone if the judgment text is available.
-4. If it helps the user place the case, call `get_citation_network` with
-   `direction="cited_by"` for a one line note on how influential it has been.
+4. Identify the key legislation and authorities the case relies on. Call
+   `get_citation_network` with `direction="cites"` and pick out the statutes,
+   procedural rules, and leading cases it leans on most. If a statute is named in
+   the judgment text but is not held as its own authority, use `extract_citations`
+   on the relevant passage to capture the reference. Do not list every citation,
+   only the ones that carry the reasoning.
+5. Establish how the case has been treated since. Call `get_citation_network` with
+   `direction="cited_by"` for the count, the most recent citing case, and the date
+   it was last cited. For the leading citing cases, call `search_extracts` to see
+   the proposition later courts cite it for, so the summary reports treatment
+   rather than a bare count. If the network does not make the treatment clear, say
+   so rather than inferring approval or criticism.
 
 ## Output
 
@@ -50,9 +60,15 @@ Reasoning
 Test elements
   If the authority carries a legal test, each element in turn and the burden.
 
-Standing
-  Cited by N cases in the corpus, most recently [citation]. One line on whether
-  it has been followed or qualified, if the citation network makes that clear.
+Statutes and authorities cited
+  The key legislation, procedural rules, and leading cases the judgment relies on,
+  each by its citation, with one phrase on what it is cited for.
+
+Treatment
+  Cited by N cases in the corpus, last cited [citation] on [date]. One or two lines
+  on what later courts cite it for and whether it has been followed, applied, or
+  qualified, drawn from the citing cases and their extracts. If that is not clear
+  from the network, say the treatment is not characterised in the corpus.
 
 Source
   The source URL from the authority record, so the user can open the judgment.
