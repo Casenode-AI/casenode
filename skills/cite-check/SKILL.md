@@ -29,10 +29,21 @@ its neutral citation so the user can open and confirm it.
    (for example overruled, doubted, or distinguished), and binding status.
 2. Record, for each citation: the raw text as written, the resolved authority and
    its canonical id, the status, the treatment, and the binding status.
-3. For anything not verified, say so plainly. An ambiguous citation needs the
-   correct authority chosen before its usage can be checked. A citation that is
-   not in the corpus cannot be confirmed, so report it as unverified rather than
-   wrong.
+3. Distinguish three existence states, because they are not the same finding:
+   - **Held in full.** The corpus holds the judgment itself. You can read its text
+     in Pass 2 to check usage directly.
+   - **Referenced only.** The corpus does not hold the judgment, but other cases in
+     the corpus cite the reference. Confirm this with `get_citation_network`
+     `direction="cited_by"` on the resolved id: a non-zero count means real cases
+     rely on it. The authority is real, so do not call it fabricated. You simply
+     cannot read its text, so its usage must be checked from the citing cases.
+   - **Not in corpus.** No authority record and nothing in the corpus cites it.
+     This is the fabrication signal. Report it as unverified, and flag that
+     nothing cites it, so the user knows it is absent rather than merely unread.
+4. For anything not held in full, say which of the three states it is in. An
+   ambiguous citation needs the correct authority chosen before its usage can be
+   checked. Never collapse "referenced only" and "not in corpus" into one bucket:
+   the first is real, the second is the thing this skill exists to catch.
 
 ## Pass 2: usage
 
@@ -45,7 +56,10 @@ this authority support the specific proposition the draft cites it for?
    headline, then `read_judgment_text` (page through with `offset`) or
    `get_authority_paragraphs` to find where the case decides the point. Decide
    whether the case supports the proposition, supports it only in part, or does
-   not support it.
+   not support it. For a referenced-only authority there is no judgment text to
+   read, so skip the read and check usage only from the citation network and
+   `search_extracts`, and say the usage check rests on the citing cases rather
+   than the judgment itself.
 3. Corroborate against how the authority is actually used. Call
    `get_citation_network` with `direction="cited_by"` to see which later cases
    cite it and at which paragraphs, and call `search_extracts` with the key terms
@@ -67,20 +81,22 @@ make it prominent rather than burying it in a table cell.
 
 ## Output
 
-Lead with a short summary line: how many citations were found, how many are
-verified, how many carry negative treatment, and how many failed the usage check.
-Then a table, one row per citation:
+Lead with a short summary line: how many citations were found, how many are held
+in full, how many are referenced only, how many are not in corpus, and how many
+failed the usage check. Then a table, one row per citation. The Exists column
+carries the three existence states, not a yes or no:
 
 ```
-Cite-check: 6 citations found. 5 verified, 1 not in corpus.
+Cite-check: 6 citations found. 4 held in full, 1 referenced only, 1 not in corpus.
 Treatment flags: 1. Usage concerns: 2.
 
-| Citation            | Exists      | Treatment        | Cited for (draft)              | Usage            |
-|---------------------|-------------|------------------|--------------------------------|------------------|
-| [2019] UKSC 38      | Verified    | None             | Proportionality is for the court | Supports        |
-| [2004] UKHL 30      | Verified    | Distinguished    | Public authority always liable | Does not support |
-| [2011] EWCA Civ 1   | Verified    | None             | Test is purely objective       | Partially supports |
-| Smith v Jones 2020  | Not in corpus | -              | Limitation runs from discovery | Unverified       |
+| Citation            | Exists             | Treatment        | Cited for (draft)              | Usage            |
+|---------------------|--------------------|------------------|--------------------------------|------------------|
+| [2019] UKSC 38      | Held in full       | None             | Proportionality is for the court | Supports        |
+| [2004] UKHL 30      | Held in full       | Distinguished    | Public authority always liable | Does not support |
+| [2011] EWCA Civ 1   | Held in full       | None             | Test is purely objective       | Partially supports |
+| [1968] 2 QB 497     | Referenced by 373  | None             | Personal service is required   | Real, from citers |
+| Smith v Jones 2020  | Not in corpus      | -                | Limitation runs from discovery | Unverified       |
 ```
 
 Follow the table with the usage concerns in full. For example:
