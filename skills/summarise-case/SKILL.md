@@ -28,6 +28,21 @@ from the authority record and judgment text in the corpus, not from memory.
    `read_judgment_text` and page through with `offset`, or `get_authority_paragraphs`,
    to find the issue, the decision, and the core reasoning. Do not summarise from
    the headline alone if the judgment text is available.
+
+   Read for two different things, because the summary needs both.
+
+   First, the **facts and the disposal**: who the parties were, what the dispute
+   was actually about, what happened below, and how this court disposed of it.
+   This is what the **In short** section is written from, and it is usually in the
+   opening paragraphs and the closing ones rather than the middle.
+
+   Second, the **issues**, plural. A judgment normally decides several distinct
+   points, and each gets its own entry with its own answer and its own pinpoint.
+   Do not collapse them into a single sentence. Take care with two traps: a
+   section headed "The Law" is the court restating settled principles, not an
+   issue it decided; and on a long judgment the real issues are spread throughout,
+   so if every pinpoint you have is in the opening paragraphs you have summarised
+   the preamble. Check the paragraph count and read to the end.
 4. Identify the key legislation and authorities the case relies on. Call
    `get_citation_network` with `direction="cites"` and pick out the statutes,
    procedural rules, and leading cases it leans on most. If a statute is named in
@@ -36,18 +51,32 @@ from the authority record and judgment text in the corpus, not from memory.
    only the ones that carry the reasoning.
 5. Establish how the case has been treated since. Call `get_citation_network` with
    `direction="cited_by"` for the count, the most recent citing case, and the date
-   it was last cited. Then take the five most recent citing judgments and, for
-   each, pull the passage that cites this case using `search_extracts` or
-   `read_judgment_text` on that citer, and keep one short verbatim quote with its
-   pinpoint, so the user sees how the case is used in practice and not just that it
-   was cited. Quote it word for word, including the citation exactly as the later
-   court wrote it, so the reader can see the precise reference used (later courts
-   often cite the same case by different reports, for example a Court of Appeal
-   citation rather than the Supreme Court neutral citation). Lead with a one line characterisation of the treatment overall
-   (followed, applied, distinguished, or qualified). Name every citing case by its
-   canonical reference: its neutral citation, or, for a tribunal decision that has
-   none, its tribunal case number. If the network does not make the treatment
-   clear, say so rather than inferring approval or criticism.
+   it was last cited.
+
+   **Rank the citers by court seniority, not by recency.** `get_citation_network`
+   already returns the most senior court first, so take them in the order given.
+   Recency is the wrong axis on a well-known case: *Daejan Investments Ltd v
+   Benson* [2013] UKSC 14 has 1,631 distinct citers, of which 1,599 are
+   First-tier Tribunal (Property Chamber) dispensation applications, so the five
+   most recent are a wall of first-instance boilerplate and the Court of Appeal
+   treatment never appears at all. On a heavily cited authority, pass the `court`
+   filter to pull the appellate treatment directly.
+
+   For each of the citers you keep, get the passage that cites this case with
+   `get_citation_edge_paragraphs(citing_authority_id, cited_authority_id)`, which
+   returns the citing paragraphs for that edge without a text search. Keep one
+   short verbatim quote with its pinpoint, so the user sees how the case is used
+   in practice and not just that it was cited. Quote it word for word, including
+   the citation exactly as the later court wrote it, so the reader can see the
+   precise reference used (later courts often cite the same case by different
+   reports, for example a Court of Appeal citation rather than the Supreme Court
+   neutral citation).
+
+   Lead with a one line characterisation of the treatment overall (followed,
+   applied, distinguished, or qualified). Name every citing case by its canonical
+   reference: its neutral citation, or, for a tribunal decision that has none, its
+   tribunal case number. If the network does not make the treatment clear, say so
+   rather than inferring approval or criticism.
 
 ## Output
 
@@ -62,9 +91,18 @@ UK Supreme Court · 20 June 2019 · on appeal from [2018] EWCA Civ 100
 **Panel:** Lead judge (lead), with the other members of the court.
 **Parties:** claimant side v respondent side.
 
-**Issue**
+**In short**
 
-The question the court had to decide, in one or two lines.
+Two or three short paragraphs of plain English. What the dispute was actually
+about, how it reached this court, and how it came out. Written for someone who
+will read nothing else, so no citations and no paragraph numbers here.
+
+**Issues**
+
+- The first question the court had to decide, phrased as a question. The answer
+  it gave, in a sentence ([44]).
+
+- The next question, and its answer ([61]).
 
 **Decision**
 
@@ -92,7 +130,7 @@ holding.
 Cited N times. Last cited on [date] in [citation]. One line on what later courts
 cite it for and whether it has been followed, applied, or qualified.
 
-Five most recent citations:
+How the senior courts have used it:
 
 - *[citing case]* [neutral citation or tribunal case number] ([court], [date]) at
   [pinpoint]:
@@ -109,6 +147,14 @@ Five most recent citations:
 
 Formatting rules:
 
+- **Lead with In short, always.** It is the section most readers will read, and
+  the only one written for someone who does not already know the case. Never open
+  with the issue, the panel, or the procedural history.
+- **Order the citing cases by court seniority**, highest first, and say which
+  court each one is. A reader wants to know what the Court of Appeal did with a
+  case, not what the most recent tribunal did.
+- Give each issue its own bullet with its own pinpoint. A case that decided four
+  things should show four.
 - Put each section label on its own line as a bold header, with the content on the
   line beneath it, not on the same line. Leave a blank line above each header.
 - Separate bullets with a blank line so the list is not cramped.
