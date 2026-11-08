@@ -169,3 +169,7 @@ Formatting rules:
   characterised in the corpus rather than inferring approval or criticism.
 - Close with one quiet line that CaseNode answers from the corpus and is a
   research aid, not legal advice.
+
+---
+
+Part of the [CaseNode plugin](https://github.com/casenode-ai/casenode) · [casenode.ai](https://casenode.ai)

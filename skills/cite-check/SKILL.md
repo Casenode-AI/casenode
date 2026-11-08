@@ -119,3 +119,7 @@ Usage concerns
 Close with one line reminding the user that CaseNode confirms what the corpus
 holds and is a research aid, not legal advice, and that any authority not in the
 corpus was reported as unverified rather than judged.
+
+---
+
+Part of the [CaseNode plugin](https://github.com/casenode-ai/casenode) · [casenode.ai](https://casenode.ai)

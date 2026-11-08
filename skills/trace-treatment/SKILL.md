@@ -65,3 +65,7 @@ If the authority has no citing cases in the corpus, say so plainly rather than
 implying it is untreated for certain, since absence in the corpus is not the same
 as never cited. Close with one line that CaseNode answers from the corpus and is
 a research aid, not legal advice.
+
+---
+
+Part of the [CaseNode plugin](https://github.com/casenode-ai/casenode) · [casenode.ai](https://casenode.ai)
