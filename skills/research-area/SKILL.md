@@ -76,3 +76,7 @@ How the courts apply it
 If the scope returns very few cases, say so and widen the filters rather than
 falling back to an unscoped query. Close with one line that CaseNode answers from
 the corpus and is a research aid, not legal advice.
+
+---
+
+Part of the [CaseNode plugin](https://github.com/casenode-ai/casenode) · [casenode.ai](https://casenode.ai)

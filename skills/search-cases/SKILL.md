@@ -51,3 +51,7 @@ Want one of these in detail, or a wider net across the Court of Appeal?
 If the search returns nothing, say so and suggest loosening a filter or trying
 broader terms rather than inventing results. Close with one line that CaseNode
 answers from the corpus and is a research aid, not legal advice.
+
+---
+
+Part of the [CaseNode plugin](https://github.com/casenode-ai/casenode) · [casenode.ai](https://casenode.ai)

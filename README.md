@@ -1,6 +1,8 @@
 # CaseNode plugin for Claude Code
 
-The CaseNode plugin bundles the CaseNode MCP connection with a set of skills for
+**[casenode.ai](https://casenode.ai)** · UK case law research with a citation graph you can check.
+
+The [CaseNode](https://casenode.ai) plugin bundles the CaseNode MCP connection with a set of skills for
 researching UK case law. The skills are short playbooks that teach the assistant
 how to cite-check a draft, search across cases, research an area of law, trace how
 a case has been treated, validate the citations in a document, and summarise a
@@ -17,8 +19,8 @@ legal advice.
 /plugin install casenode
 ```
 
-On install you will be asked for your CaseNode API key. Create one at casenode.ai
-under Settings, then API keys. The key is stored securely by Claude Code and sent
+On install you will be asked for your CaseNode API key. Create one at
+[casenode.ai](https://casenode.ai/api/signup) under Settings, then API keys. The key is stored securely by Claude Code and sent
 as the `X-API-Key` header on every request to the CaseNode MCP server at
 `https://api.casenode.ai/mcp`. Keep it secret: anyone with the key can query the
 corpus on your behalf.

@@ -50,3 +50,7 @@ the table. State clearly that this pass checked existence and treatment only, an
 that confirming each authority supports its point requires the cite-check skill.
 Close with one line that CaseNode answers from the corpus and is a research aid,
 not legal advice.
+
+---
+
+Part of the [CaseNode plugin](https://github.com/casenode-ai/casenode) · [casenode.ai](https://casenode.ai)
